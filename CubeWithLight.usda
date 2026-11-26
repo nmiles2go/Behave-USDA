@@ -12,8 +12,6 @@ def "Scene"
 {
     def Cube "Cube" (
     prepend apiSchemas = ["UsdShadeMaterialBindingAPI"]
-        kind = "component"
-        typeName = "Mesh"
     )
         {
             float size = 0.3
@@ -68,7 +66,6 @@ def "Scene"
 
     def Sphere "LightVisualSphere" (
         prepend apiSchemas = ["UsdShadeMaterialBindingAPI"]
-        typeName = "Sphere"
     )
         {
             float radius = 0.005  
@@ -145,7 +142,16 @@ def "Scene"
         }
 
 
-    
+    def DistantLight "SunLight"
+    {
+        color3f inputs:color = (1.0, 1.0, 1.0)
+        float inputs:intensity = 100000
+        float inputs:angle = 0.53  # like the sun's angular size
+
+        float3 xformOp:orient = (0.0, 0.0, -1.0)
+
+        uniform token[] xformOpOrder = ["xformOp:orient"]
+    }
 
 def Scope "Materials"
     {
